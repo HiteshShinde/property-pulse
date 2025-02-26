@@ -73,12 +73,22 @@ const MessageCard = ({ message }) => {
         </li>
       </ul>
 
-      <button
-        onClick={handleReadClick}
-        className="mt-4 mr-3 bg-blue-500 hover:bg-blue-700 text-white py-1 px-3 rounded-md"
-      >
-        {isRead ? "Mark As Unread" : "Mark As Read"}
-      </button>
+      {isRead ? (
+        <button
+          onClick={handleReadClick}
+          className="mt-4 mr-3 bg-gray-300 hover:bg-gray-400 text-gray-800 py-1 px-3 rounded-md"
+        >
+          Mark As Unread
+        </button>
+      ) : (
+        <button
+          onClick={handleReadClick}
+          className="mt-4 mr-3 bg-blue-500 hover:bg-blue-700 text-white py-1 px-3 rounded-md"
+        >
+          {isRead ? "Mark As Unread" : "Mark As Read"}
+        </button>
+      )}
+
       <button
         onClick={handleDeleteClick}
         className="mt-4 bg-red-500 hover:bg-red-700 text-white py-1 px-3 rounded-md"
