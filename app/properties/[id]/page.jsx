@@ -1,10 +1,14 @@
 import Link from "next/link";
 import PropertyHeaderImage from "@/components/PropertyHeaderImage";
 import PropertyDetails from "@/components/PropertyDetails";
+import PropertyImages from "@/components/PropertyImages";
+import BookmarkButton from "@/components/BookmarkButton";
+import ShareButtons from "@/components/ShareButtons";
+import PropertyContactForm from "@/components/PropertyContactForm";
 import connectDB from "@/config/database";
 import Property from "@/models/Property";
-import PropertyImages from "@/components/PropertyImages";
 import { FaArrowLeft } from "react-icons/fa";
+import { convertToSerializableObject } from "@/utils/convertToObjects";
 
 const DynamicPropertyPage = async ({ params }) => {
   await connectDB();
@@ -13,14 +17,14 @@ const DynamicPropertyPage = async ({ params }) => {
     return <p>Error: Property ID is missing.</p>;
   }
 
-  let property;
-  try {
-    property = await Property.findById(params.id).lean();
-    if (!property) {
-      return <p>Property not found.</p>;
-    }
-  } catch (error) {
-    console.error(error);
+  const propertyDoc = await Property.findById(params.id).lean();
+  const property = convertToSerializableObject(propertyDoc);
+  if (!property) {
+    return (
+      <h1 className="text-center text-3xl font-bold mt-10">
+        Property not found.
+      </h1>
+    );
   }
 
   return (
@@ -41,6 +45,11 @@ const DynamicPropertyPage = async ({ params }) => {
           <div className="grid grid-cols-1 md:grid-cols-70/30 w-full gap-6">
             {/* Property Info */}
             <PropertyDetails property={property} />
+            <aside className="space-y-4">
+              <BookmarkButton property={property} />
+              <ShareButtons property={property} />
+              <PropertyContactForm property={property} />
+            </aside>
           </div>
         </div>
       </section>
