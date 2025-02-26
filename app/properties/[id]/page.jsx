@@ -9,9 +9,12 @@ import connectDB from "@/config/database";
 import Property from "@/models/Property";
 import { FaArrowLeft } from "react-icons/fa";
 import { convertToSerializableObject } from "@/utils/convertToObjects";
+import { getSessionUser } from "@/utils/getSessionUser";
 
 const DynamicPropertyPage = async ({ params }) => {
   await connectDB();
+
+  const session = await getSessionUser();
 
   if (!params || !params.id) {
     return <p>Error: Property ID is missing.</p>;
@@ -46,7 +49,8 @@ const DynamicPropertyPage = async ({ params }) => {
             {/* Property Info */}
             <PropertyDetails property={property} />
             <aside className="space-y-4">
-              <BookmarkButton property={property} />
+              {session && <BookmarkButton property={property} />}
+
               <ShareButtons property={property} />
               <PropertyContactForm property={property} />
             </aside>
