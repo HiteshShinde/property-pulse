@@ -24,12 +24,12 @@ async function bookmarkProperty(propertyId) {
   if (isBookmarked) {
     // If already bookmarked, then remove
     user.bookmarks.pull(propertyId);
-    message = "Bookmark Removed successfully";
+    message = "Removed from Saved properties";
     isBookmarked = false;
   } else {
     // If not bookmarked, then add
     user.bookmarks.push(propertyId);
-    message = "Bookmark Added successfully";
+    message = "Property saved successfully";
     isBookmarked = true;
   }
 
