@@ -44,17 +44,17 @@ const PropertyCard = ({ property }) => {
 
         <div className="flex justify-center gap-4 text-gray-500 mb-4">
           <p>
-            <FaBed className="md:hidden lg:inline" /> {property.beds}{" "}
-            <span className="md:hidden lg:inline">Beds</span>
+            <FaBed className="inline-block mr-1 md:mr-2" /> {property.beds}{" "}
+            <span className="inline-block mr-1 md:mr-2">Beds</span>
           </p>
           <p>
-            <FaBath className="md:hidden lg:inline" /> {property.baths}{" "}
-            <span className="md:hidden lg:inline">Baths</span>
+            <FaBath className="inline-block mr-1 md:mr-2" /> {property.baths}{" "}
+            <span className="inline-block mr-1 md:mr-2">Baths</span>
           </p>
           <p>
-            <FaRulerCombined className="md:hidden lg:inline" />
+            <FaRulerCombined className="inline-block mr-1 md:mr-2" />
             {property.square_feet}{" "}
-            <span className="md:hidden lg:inline">sqft</span>
+            <span className="inline-block mr-1 md:mr-2">sqft</span>
           </p>
         </div>
 
@@ -62,8 +62,12 @@ const PropertyCard = ({ property }) => {
           {Object.keys(property.rates).map((rate) => {
             if (property.rates[rate] !== "" && property.rates[rate] !== null) {
               return (
-                <p key={rate}>
-                  <FaMoneyBill className="md:hidden lg:inline" /> {rate}
+                <p
+                  key={rate}
+                  className="flex flex-col md:flex-row justify-center items-center"
+                >
+                  <FaMoneyBill className="block mb-1 md:mb-0 mr-0 md:mr-2" />{" "}
+                  {rate}
                 </p>
               );
             }
@@ -77,7 +81,7 @@ const PropertyCard = ({ property }) => {
             <FaMapMarker className="text-orange-700 mt-1" />
             <span className="text-orange-700">
               {" "}
-              {property.location.city} {property.location.state}{" "}
+              {property.location.city}, {property.location.state}{" "}
             </span>
           </div>
           <Link
